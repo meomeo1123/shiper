@@ -1,0 +1,167 @@
+﻿@model List<tester1.Models.SanPham>
+
+@{
+    ViewBag.Title = "ProductCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+
+}
+@section css{
+    <link href="~/Content/css/product.css" rel="stylesheet" />
+}
+<style>
+    .btn {
+        width: 65%;
+    }
+
+    #content {
+        background: #fff;
+    }
+
+        #content::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+</style>
+@section category{
+    <div class="nav-2">
+        <a href="/Home/Index">Trang chủ</a>
+        <span>//</span>
+        <p>@ViewBag.FirstProduct.DanhMuc.TenDM</p>
+    </div>
+    <!-- product-container -->
+    <div style="padding: 0 15px;" class="row  product-container">
+        <div style="max-width: 70%;" class="col l-9">
+            
+            <div class="typical_product">
+                <div class="img-intro">
+                    <img height="415" src="@ViewBag.FirstProduct.HinhAnh" alt="">
+                </div>
+                <div class="intro-product">
+                    <h1 style="margin-left:10px;">@ViewBag.FirstProduct.TenSP</h1>
+                    <p class="text-intro" style="margin-left: 10px; font-size:large">
+                        @ViewBag.FirstProduct.MoTa
+                    </p>
+                    <p style="margin-left: 30px;" class="price">
+                        <strong>Giá:</strong> @ViewBag.FirstProduct.GiaBan.ToString("N0")<span>đ</span>
+                    </p>
+                    <div style="margin-left: 26px" class="btn btn-intro">
+                        <a href=" /AddCart/AddItem?productId=@ViewBag.FirstProduct.MaSP&quantity=1">
+                            <span>
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Đặt món
+                            </span>
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="row">
+                @foreach (var item in Model.Skip(1))
+                {
+                    <div style="max-width: 30.33333%;" class="col l-4 item">
+                        <div class="section-product">
+                            <img class="img-product" height="300" src="@item.HinhAnh" alt="">
+                            <div class="title-product">
+                                <h1>
+                                    @item.TenSP
+                                </h1>
+                                <p><small>Giá:</small> @tester1.Common.Common.FormatNumber(item.GiaBan, 0)<span>đ</span></p>
+
+                                <div class="btn btn-product" onclick="addToCart(@item.MaSP)">
+                                    <span>
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                        Đặt món
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- sidebar -->
+
+        <div class="col l-3">
+            <div class="sidebar">
+                <h1 class="section">Danh Mục</h1>
+                <ul class="item-sidebar">
+                    <li>
+                        <a href="/Home/ProductCategory/1">Khai vị</a>
+                    </li>
+                    <li>
+                        <a href="/Home/ProductCategory/2">Món chính</a>
+                    </li>
+                    <li>
+                        <a href="/Home/ProductCategory/3">Tráng miệng</a>
+                    </li>
+                    <li>
+                        <a href="/Home/ProductCategory/4">Nước uống</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar notif">
+                <h1 class="section">Tin Mới</h1>
+                <ul class="item-sidebar">
+                    <li class="li-notif">
+                        <a href=""> ● Cách nhận biết chuối chín tự nhiên và chuối chín do nhúng hóa chất</a>
+                    </li>
+                    <li class="li-notif">
+                        <a href=""> ● Những người này không nên ăn dứa trong đông</a>
+                    </li>
+                    <li class="li-notif">
+                        <a href=""> ● 3 bí quyết lựa chọn thực phẩm sạch</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+}
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .swal2-popup {
+            font-size: 1.4rem !important;
+        }
+    </style>
+    <script>
+        function addToCart(productId) {
+            // Gửi yêu cầu thêm sản phẩm vào giỏ hàng bằng AJAX
+            $.ajax({
+                url: '/AddCart/AddItem',
+                type: 'GET',
+                data: { productId: productId, quantity: 1 },
+                success: function (response) {
+                    // Hiển thị thông báo thành công bằng SweetAlert2
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thành công',
+                        text: 'Sản phẩm đã được thêm vào giỏ hàng',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        // Làm mới trang sau khi nhấp OK
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                },
+                error: function () {
+                    // Xử lý lỗi nếu có bằng SweetAlert2
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Đã xảy ra lỗi. Vui lòng thử lại sau',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        }
+    </script>
+}

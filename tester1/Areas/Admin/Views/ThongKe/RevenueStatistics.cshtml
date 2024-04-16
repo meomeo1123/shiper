@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "Revenue Statistics";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<h2>Biểu đồ doanh thu hàng ngày</h2>
+
+<!-- Thêm đoạn mã sau vào phần head của trang của bạn -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Form sử dụng Bootstrap -->
+<div style="width:300px;float:left;margin-left:20px" class="container mt-3">
+    <form id="searchForm" method="post" action="/Admin/ThongKe/FilteredRevenueStatistics2">
+        <div class="form-group">
+            <label for="fromDate">Từ ngày:</label>
+            <input type="date" class="form-control" id="fromDate" name="fromDate" value="@ViewBag.FromDate">
+        </div>
+        <div class="form-group">
+            <label for="toDate">Đến ngày:</label>
+            <input type="date" class="form-control" id="toDate" name="toDate" value="@ViewBag.ToDate">
+        </div>
+        <button type="submit" class="btn btn-primary">Lọc</button>
+    </form>
+</div>
+
+
+<div style="height:1000px;">
+    <canvas id="revenueChart" width="400" height="200"></canvas>
+</div>
+
+
+<script>
+    var dates = @Html.Raw(Json.Encode(ViewBag.Dates));
+    var revenues = @Html.Raw(Json.Encode(ViewBag.Revenues));
+    var costs = @Html.Raw(Json.Encode(ViewBag.Costs));
+    var profits = @Html.Raw(Json.Encode(ViewBag.Profits));
+
+    // Cập nhật biểu đồ mặc định khi tải trang
+    updateChart(dates, revenues, costs, profits);
+
+    // Hàm cập nhật biểu đồ
+    function updateChart(dates, revenues, costs, profits) {
+        var ctx = document.getElementById('revenueChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: dates,
+                datasets: [
+                    {
+                        label: 'Doanh thu',
+                        data: revenues,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Chi phí',
+                        data: costs,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Lợi nhuận',
+                        data: profits,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $('#searchForm').on('submit', function (e) {
+            e.preventDefault(); // Ngăn chặn việc gửi form mặc định
+
+            var fromDate = new Date($('#fromDate').val());
+            var toDate = new Date($('#toDate').val());
+            var today = new Date();
+
+            // Kiểm tra ngày hợp lệ
+            if (fromDate > today || toDate > today) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: 'Ngày không được lớn hơn ngày hiện tại',
+                });
+                return;
+            } else if (fromDate > toDate) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: 'Ngày kết thúc không được nhỏ hơn ngày bắt đầu',
+                });
+                return;
+            }
+
+            // Gửi form nếu ngày hợp lệ
+            this.submit();
+        });
+    });
+</script>
