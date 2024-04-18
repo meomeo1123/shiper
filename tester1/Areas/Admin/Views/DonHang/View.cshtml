@@ -79,6 +79,7 @@
                     <div class="form-group">
                         <label>Địa chỉ</label>
                         <p class="form-control">@Model.DiaChi</p>
+                        <button class="btn btn-primary" id="viewMapBtn" data-order-id="@Model.MaDH">Xem Vị Trí Đơn Hàng</button>
                     </div>
                 </div>
 
@@ -102,3 +103,28 @@
 
 </section>
 <!-- /.content -->
+
+
+<script>
+    // get id định vị
+    $(document).ready(function () {
+        $('.viewMapBtn').click(function () {
+            var orderId = $(this).data('id');
+
+            $.ajax({
+                url: '/Geocode/adress',
+                type: 'POST',
+                data: { orderId: orderId },
+                success: function (response) {
+                    // Xử lý kết quả trả về nếu cần
+                    console.log(orderId); // In MaDH ra console log
+                    console.log(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                    // Xử lý lỗi nếu có
+                }
+            });
+        });
+    });
+</script>

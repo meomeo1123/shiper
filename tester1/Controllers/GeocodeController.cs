@@ -12,6 +12,20 @@ namespace tester1.Controllers
     public class GeocodeController : Controller
     {
         // GET: Geocode
+        ThucDonDataContext db = new ThucDonDataContext();
+        [HttpPost]
+        public ActionResult adress(string MaDH)
+        {
+            var address = db.DonHangs
+                            .Where(o => o.MaDH == MaDH)
+                            .Select(o => o.Quan + ", " + o.DiaChi)
+                            .FirstOrDefault();
+            Session["Address"] = "HCM Quận 1";
+            TempData["Address"] = "Quận 1 , Thành phố HCM";
+
+            // Trả về một phản hồi HTTP, có thể là PartialView hoặc Redirect
+            return RedirectToAction("Map", "Geocode");
+        }
         public async Task<ActionResult> GetCoordinates(string address)
         {
             try
@@ -51,7 +65,7 @@ namespace tester1.Controllers
 
 
         public async Task<ActionResult> Map()
-            {
+        {
             GeocodeController geocodeController = new GeocodeController();
             ActionResult result = await geocodeController.GetCoordinates("HCM Quận 1");
 
@@ -70,6 +84,7 @@ namespace tester1.Controllers
                 // Ví dụ: Trả về một view hiển thị thông báo lỗi
                 return View("Error");
             }
+
         }
     }
 }

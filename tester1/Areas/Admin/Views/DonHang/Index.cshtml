@@ -1,4 +1,5 @@
 ﻿@model PagedList.IPagedList<tester1.Models.DonHang>
+
 @using PagedList.Mvc;
 
 @{
@@ -194,20 +195,24 @@
                                 {
                                     <td width="7%">Không có thông tin huỷ</td>
                                 }
-                                <td>
-                                    <div>
-                                        <select class="status-dropdown custom-select">
-                                            <option value="1">Đơn hàng mới</option>
-                                            <option value="2">Xác nhận đơn hàng</option>
-                                            <option value="3">Đang chuẩn bị món ăn</option>
-                                            <option value="4">Đang vận chuyển đến bạn</option>
-                                            <option value="5">Đã giao hàng</option>
-                                        </select>
-                                        <button class="btn btn-sm btn-warning btnCapNhat" data-id="@item.MaDH">Cập nhật</button>
-                                    </div>
-                                    <a href="/Admin/DonHang/View/@item.MaDH" class="btn btn-sm btn-success">Xem</a>
-                                    <button class="btnHuyDonHang btn btn-sm btn-danger" data-id="@item.MaDH">Huỷ đơn hàng</button>
-                                </td>
+                            <td>
+                                <div>
+                                    <select class="status-dropdown custom-select">
+                                        <option value="1">Đơn hàng mới</option>
+                                        <option value="2">Xác nhận đơn hàng</option>
+                                        <option value="3">Đang chuẩn bị món ăn</option>
+                                        <option value="4">Đang vận chuyển đến bạn</option>
+                                        <option value="5">Đã giao hàng</option>
+                                    </select>
+                                    <button class="btn btn-sm btn-warning btnCapNhat" data-id="@item.MaDH">Cập nhật</button>
+                                </div>
+                                <a href="/Admin/DonHang/View/@item.MaDH" class="btn btn-sm btn-success">Xem</a>
+                                <button class="btnHuyDonHang btn btn-sm btn-danger" data-id="@item.MaDH">Huỷ đơn hàng</button>
+                                <form action="/Geocode/adress" method="post">
+                                    <input type="hidden" name="MaDH" value="@item.MaDH" />
+                                    <button type="submit" class="btnNhanDon btn btn-sm btn-light">Nhận đơn hàng</button>
+                                </form>
+                            </td>
                                 <td>
                                     <div style="margin: 35px 15px" class="form-check">
                                         <input style="width: 20px; height: 20px; margin-right: 10px;" class="form-check-input" type="checkbox" value="" id="id=" flexCheckChecked_@item.MaDH" data-orderid="@item.MaDH">
@@ -237,7 +242,7 @@
 
 </section>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     var buttons = document.getElementsByClassName('btnCapNhat');
     for (var i = 0; i < buttons.length; i++) {
@@ -303,8 +308,6 @@
         window.location.href = url;
     });
 </script>
-
-
 <script>
     // Lưu trạng thái checkbox khi được chọn
     document.querySelectorAll('.form-check-input').forEach(function (checkbox) {
@@ -429,7 +432,28 @@
     });
 </script>
 
+<script>
+    $(document).ready(function () {
+        $('.btnNhanDon').click(function () {
+            var orderId = $(this).data('id');
+            console.log("Mã đơn hàng: " + orderId); // In ra mã đơn hàng trên console
 
+            $.ajax({
+                url: '/Geocode/adress',
+                type: 'POST',
+                data: { MaDH: orderId }, // Đảm bảo tên trường dữ liệu là "MaDH"
+                success: function (response) {
+                    // Xử lý kết quả trả về nếu cần
+                    console.log(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                    // Xử lý lỗi nếu có
+                }
+            });
+        });
+    });
+</script>
 
 
 

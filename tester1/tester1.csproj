@@ -4965,6 +4965,7 @@
     <Content Include="Views\Rating\FilterRatings.cshtml" />
     <Content Include="Views\Shipper\Index.cshtml" />
     <Content Include="Views\Geocode\Map.cshtml" />
+    <Content Include="Views\Geocode\adress.cshtml" />
     <Content Include="Views\Geocode\GetCoordinates.cshtml" />
   </ItemGroup>
   <ItemGroup>
