@@ -12,6 +12,7 @@
     </style>
 </head>
 <body>
+    <i class='fas fa-shipping-fast' style='font-size:48px;color:green'></i>
     <h2>Shipper Address: @Model.ShipperAddress</h2>
     <h2>Order Address: @Model.OrderAddress</h2>
     <div id="map"></div>
@@ -40,5 +41,6 @@
         }
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=@Model.GoogleMapsAPIKey&callback=initMap"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </body>
 </html>
