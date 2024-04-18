@@ -10,6 +10,7 @@ namespace tester1.Controllers
     public class SendMailController : Controller
     {
         // GET: SendMail
+        //test
 
             private EmailService emailService;
 

@@ -17,6 +17,7 @@ namespace tester1.Controllers
         public ActionResult Index()
         {
             //IEnumerable<Product> listSP = (from )
+            //test
             return View();
         }
 
