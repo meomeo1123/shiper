@@ -1,0 +1,121 @@
+﻿
+
+
+Testcase kiểm thử cho website: Menu Online
+ID	Decriptions	Author
+1	Test tìm kiếm theo tên sản phẩm
+Mục tiêu
+1. Truy cập trang web 
+2. Tìm kiếm sản phẩm 
+3. Lấy thông tin sản phẩm hiển thị
+4. Xác định tên tìm kiếm có xuất hiện trong tên sản phẩm
+Verify: Kết quả xác định trả về true	Trung
+2	Test chức năng thêm sản phẩm vào giỏ hàng kiểm tra số lượng sản phẩm trong giỏ hàng
+Mục TIêu
+1.Truy cập trang web 
+2.Tìm kiếm sản phẩm  
+3.Lấy thông tin số lượng sản phẩm
+4.Thêm sản phẩm trên vào giỏ hàng
+5.Tính số lượng sản phẩm thêm vào giỏ hàng
+6.Lấy số lượng sản phẩm hiển thị trong giỏ hàng
+Verify: Số lượng sản phẩm tính = số lượng sản phẩm hiển thị trong giỏ hàng	Trung
+3	Test thêm giỏ hàng và kiểm tra số tiền 
+Mục TIêu
+1.Truy cập trang web 
+2.Tìm kiếm sản phẩm  
+3.Lấy thông tin sản phẩm
+4.Thêm sản phẩm trên vào giỏ hàng
+6.Lấy tổng tiền của web cập nhật
+7. Xác định tổng tiền trên web bằng với tiền sản phẩm
+Verify: So sánh tiền của sản phẩm  = tổng tiền tính được
+- Xác định trả về true	Trung
+4	Test thêm giỏ hàng và kiểm tra số tiền đã cập nhật
+Mục TIêu
+1.Truy cập trang web 
+2.Tìm kiếm sản phẩm  
+3.Lấy thông tin sản phẩm
+4.Thêm sản phẩm trên vào giỏ hàng
+5.Lấy tổng tiền của shop
+6. Thêm tiếp sản phẩm vào giỏ hàng 
+7.Lấy tổng tiền của shop cập nhật
+8. Xác định tổng tiền shop trước nhỏ hơn sau cập nhật 
+8. Tính tổng tiền sản phẩm trong giỏ hàng
+Verify: so sánh tiền của shop cập nhật = tổng tiền tính được
+- Xác định trả về true	Trung
+5	Test xóa sản phẩm trong giỏ hàng và kiểm tra tổng tiền
+Mục Tiêu
+1.Truy cập trang web 
+2.Tìm kiếm sản phẩm  
+3.Lấy thông tin sản phẩm
+4.Thêm sản phẩm trên vào giỏ hàng
+5.Xóa một số sản phẩm
+6.Tính tổng tiền sản phẩm còn lại
+7.Lấy tổng tiền của shop
+Verify: so sánh tiền của shop = tiền tính ra	Trung
+7	Test áp mã giảm giá
+Mục tiêu
+1.Truy cập trang web 
+2. Chọn sản phẩm
+3. Vào giỏ hàng
+4. Chọn mã giảm giá
+5. Kiểm tra giá của sản phẩm
+Verify: so sánh giá của sản phẩm sau khi áp mã giảm giá = giá sản phẩm * phần trăm giảm giá
+- Xác định trả về true	Trung
+8	Test sửa thông tin tài khoản
+Mục tiêu
+1.Truy cập trang web 
+2.Click vào tài khoản trên góc màn hình
+3.Đổi thông tin tài khoản
+4.Nhấn nút hoàn tất
+Verify: Thông tin hiển thị góc màn hình là tên mới được đổi	Minh
+9	Test sản phẩm theo đánh giá
+Mục tiêu
+1.Truy cập trang web 
+2.Nhập tên sản phẩm vào thanh tìm kiếm
+3.Chọn bộ lọc theo sao đánh giá
+Verify: so sánh phần đánh giá sản phẩm có hiện 5 	Minh
+10	Test chức năng đăng xuất
+Mục tiêu
+1.Truy cập trang web 
+2.Nhập vào tài khoản trên góc màn hinh
+3.Chọn “Đăng xuất tài khoản”
+4.Kiểm tra xem tìa khoản thoát ra và trả về nút “Đăng nhập”
+Verify: Tài khoản trên góc màn hình = “Đăng nhập”	Minh
+
+11	
+Test lọc phiếu giảm giá
+Mục tiêu
+1.Truy cập trang web 
+2. Chọn “Ưu  đãi của tôi” trên góc phải màn hình
+3.Chọn “Mã Freeship”
+4.Kiểm tra các mã có phải là mã freeship hay không
+Verify: so sánh mã có chuỗi “Freeship” = true	
+Minh
+12	Test đăng ký tài khoản
+Mục tiêu
+1.Truy cập trang web 
+1.Chọn “Đăng ký”
+2.Nhập thông tin 
+3.Nhấn nút “Register”
+Verify: Đăng ký thành công và vào trang chủ	Minh
+13	Test chức năng chat
+Mục tiêu
+1.Truy cập trang web 
+1.Nhấn vào chat ở góc dưới phải màn hình
+2. Ấn bắt đầu trò chuyện
+3.Thực hiện một cuộc trò chuyện
+Verify: Box chat sẽ hiển thị tin nhắn  trả lời sau khi nhận câu hỏi	Trung
+14	Test lưu Voucher 
+Mục tiiêu
+1.Truy cập trang web 
+1.Chọn “Mã giảm giá”
+2. Nhấn “ Lưu mã”
+3.Vào “Ưu đãi của tôi” chọn “Shop”
+Verify: Mã giảm giá được lưu sẽ hiển thị trong phần “Ưu đãi của tôi”	Trung
+15	Test chức năng thanh toán
+Mục tiêu
+1 .Truy cập trang web 
+1.Chọn sản phẩm
+2.Vào giỏ hàng 
+3.Tích vào sản phẩm
+Verify: Giá thanh toán sản phẩm sẽ bằng tổng của phí ship và giá mặc định của riêng sản phẩm	Minh
