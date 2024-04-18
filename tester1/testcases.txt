@@ -1,4 +1,4 @@
-﻿Test case:
+﻿Update test case:
 Testcase kiểm thử cho website: Menu Online
 ID	Decriptions	Author
 1	Test tìm kiếm theo tên sản phẩm
