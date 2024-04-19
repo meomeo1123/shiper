@@ -18,10 +18,9 @@ namespace tester1.Controllers
         {
             var address = db.DonHangs
                             .Where(o => o.MaDH == MaDH)
-                            .Select(o => o.Quan + ", " + o.DiaChi)
+                            .Select(o => o.DiaChi + ", " + o.Quan)
                             .FirstOrDefault();
-            Session["Address"] = "HCM Quận 1";
-            TempData["Address"] = "Quận 1 , Thành phố HCM";
+            Session["Address"] = address;
 
             // Trả về một phản hồi HTTP, có thể là PartialView hoặc Redirect
             return RedirectToAction("Map", "Geocode");
@@ -30,7 +29,7 @@ namespace tester1.Controllers
         {
             try
             {
-                string apiKey = "AIzaSyDp8VBJ1CIihPbR-iTwR2q7jEkS03BXyOU"; // Thay YOUR_API_KEY bằng API key của bạn
+                string apiKey = "AIzaSyBXERVKQsDCFy-fojkLIpkLdWvN76AcSjg"; // Thay YOUR_API_KEY bằng API key của bạn
                 string url = $"https://maps.googleapis.com/maps/api/geocode/json?address={Uri.EscapeDataString(address)}&key={apiKey}";
 
                 using (HttpClient client = new HttpClient())
@@ -66,8 +65,10 @@ namespace tester1.Controllers
 
         public async Task<ActionResult> Map()
         {
+            string Address = Session["Address"] as string;
+            ViewBag.Address = Address;
             GeocodeController geocodeController = new GeocodeController();
-            ActionResult result = await geocodeController.GetCoordinates("HCM Quận 1");
+            ActionResult result = await geocodeController.GetCoordinates(Address);
 
             // Kiểm tra xem kết quả có null không
             if (result != null && result is JsonResult && (result as JsonResult).Data != null)
@@ -80,9 +81,7 @@ namespace tester1.Controllers
             }
             else
             {
-                // Xử lý khi kết quả là null
-                // Ví dụ: Trả về một view hiển thị thông báo lỗi
-                return View("Error");
+                return View();
             }
 
         }
