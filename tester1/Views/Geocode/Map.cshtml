@@ -122,6 +122,11 @@
                 }
             });
         }
+        function setFakeDestination(latitude, longitude) {
+            var newDestination = new google.maps.LatLng(latitude, longitude);
+            destinationLatLng = newDestination;
+            calculateAndDisplayRoute(origin, destinationLatLng);
+        }
     </script>
 
 
